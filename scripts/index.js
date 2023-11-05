@@ -56,8 +56,8 @@ $(function() {
     if (pos2 > $('#portfolio').offset().top) {
       highlightLink('portfolio');
     }
-    if (pos2 > $('#blog').offset().top) {
-      highlightLink('blog');
+    if (pos2 > $('#certifications').offset().top) {
+      highlightLink('certifications');
     }
     if (
       pos2 > $('#contact').offset().top ||
@@ -106,16 +106,16 @@ $(function() {
     $('.link-wrap').toggleClass('visible');
   });
 
-  $('.blog-wrap').hover(
+  $('.certifications-wrap').hover(
     function() {
-      $('.blog-wrap')
+      $('.certifications-wrap')
         .not(this)
         .addClass('fade');
       $(this).addClass('hover');
     },
     function() {
       $(this).removeClass('hover');
-      $('.blog-wrap').removeClass('fade');
+      $('.certifications-wrap').removeClass('fade');
     }
   );
 
@@ -178,4 +178,43 @@ $(function() {
   setTimeout(function() {
     onScrollInit($('.waypoint'));
   }, 10);
+
+  // Certifications
+  let currentSlide = 1;
+        const slides = document.querySelectorAll('.slide');
+        const slider = document.querySelector('.slider');
+
+        function zoomIn(imageSrc) {
+            document.getElementById('zoomed-image').src = imageSrc;
+            document.getElementById('zoomed-certification').style.display = 'block';
+        }
+
+        function closeZoomed() {
+            document.getElementById('zoomed-certification').style.display = 'none';
+        }
+
+        function showSlide(slideIndex) {
+            if (slideIndex < 0) {
+                slideIndex = slides.length - 1;
+            } else if (slideIndex >= 2) {
+                slideIndex = 0;  // Reset to the first slide
+            }
+            currentSlide = slideIndex;
+            const offset = -currentSlide * slides[0].offsetWidth;
+            slider.style.transform = `translateX(${offset}px)`;
+        }
+
+
+        showSlide(0);
+
+        // Add navigation buttons for sliding through certifications
+        const prevButton = document.createElement('button');
+        prevButton.textContent = 'Previous';
+        prevButton.addEventListener('click', () => showSlide(currentSlide - 1));
+        const nextButton = document.createElement('button');
+        nextButton.textContent = 'Next';
+        nextButton.addEventListener('click', () => showSlide(currentSlide + 1));
+
+        document.querySelector('#certifications').appendChild(prevButton);
+        document.querySelector('#certifications').appendChild(nextButton);
 });
