@@ -196,15 +196,13 @@ $(function() {
         function showSlide(slideIndex) {
             if (slideIndex < 0) {
                 slideIndex = slides.length - 1;
-            } else if (slideIndex >= 2) {
-                slideIndex = 0;  // Reset to the first slide
+            } else if (slideIndex >= slides.length) {
+                slideIndex = -1;  // Reset to the first slide
             }
             currentSlide = slideIndex;
             const offset = -currentSlide * slides[0].offsetWidth;
             slider.style.transform = `translateX(${offset}px)`;
         }
-
-
         showSlide(0);
 
         // Add navigation buttons for sliding through certifications
